@@ -18,7 +18,7 @@ app.controller('FeedCtrl', function ($scope, $ionicLoading, FeedService) {
 	};
 });
 
-app.controller('PostCtrl', function ($scope, $stateParams, FeedService) {
+app.controller('PostCtrl', function ($scope, $stateParams, $window, $cordovaSocialSharing, FeedService) {
 	console.log("Loading PostCtrl");
 
 	var postId = $stateParams.id;
@@ -26,10 +26,13 @@ app.controller('PostCtrl', function ($scope, $stateParams, FeedService) {
 
 	$scope.share = function () {
 		console.debug("Sharing post");
+
+		  $cordovaSocialSharing.share($scope.contentSnippet, $scope.post.title, $scope.post.thumbnail, $scope.post.link);
 	};
 
 	$scope.readMore = function () {
 		console.debug("Read more post");
+		$window.open($scope.post.link, '_system', 'location=yes');
 	};
 
 });

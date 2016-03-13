@@ -8,6 +8,7 @@ app.controller('FeedCtrl', function ($scope, $ionicLoading, FeedService) {
 	$scope.feed = FeedService;
 	$scope.feed.loadFeed().then(function(){
 		$ionicLoading.hide();
+		console.log('Done');
 	});
 
 	$scope.doRefresh = function () {
@@ -17,8 +18,11 @@ app.controller('FeedCtrl', function ($scope, $ionicLoading, FeedService) {
 	};
 });
 
-app.controller('PostCtrl', function ($scope) {
+app.controller('PostCtrl', function ($scope, $stateParams, FeedService) {
 	console.log("Loading PostCtrl");
+
+	var postId = $stateParams.id;
+	$scope.post = FeedService.getEntry(postId);
 
 	$scope.share = function () {
 		console.debug("Sharing post");
